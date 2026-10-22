@@ -1,18 +1,5 @@
 # CausalLens
 
-CausalLens evaluates **Qwen3-VL-8B** with two additions on the
-[MM-Vet](https://github.com/yuweihao/MM-Vet) benchmark:
-
-- **Causal residual Q-Former** on the visual tokens. Learnable queries are first shifted by a
-  backdoor-adjustment style intervention over a fixed confounder dictionary (16384 x 256 entries with
-  a prior). They then read the image through cross-attention, and their result is projected back
-  onto every visual token as a gated residual (`out = x + alpha * clip(delta, |x|)`).
-- **LoRA adapter** (r=16) on the language model's attention and MLP projections.
-
-```
-image -> Qwen3-VL vision tower -> causal residual Q-Former -> Qwen3-VL LLM (+LoRA) -> answer
-```
-
 Weights: [huggingface.co/litcoderr/CausalLens](https://huggingface.co/litcoderr/CausalLens)
 
 ## Repository layout
@@ -119,18 +106,7 @@ errors is printed at the end.
 ## 5. Scoring
 
 MM-Vet grades open-ended answers with GPT-4. You can upload `results/mmvet_causallens.json` to the
-[MM-Vet online evaluator](https://huggingface.co/spaces/whyu/MM-Vet_Evaluator), or run the official
-grader with your OpenAI key:
-
-```bash
-git clone https://github.com/yuweihao/MM-Vet.git third_party/MM-Vet
-uv pip install --python .venv/bin/python openai pandas
-.venv/bin/python third_party/MM-Vet/mm-vet_evaluator.py \
-    --mmvet_path data/mm-vet \
-    --result_file results/mmvet_causallens.json \
-    --result_path results/grading \
-    --openai_api_key "$OPENAI_API_KEY"
-```
+[MM-Vet online evaluator](https://huggingface.co/spaces/whyu/MM-Vet_Evaluator).
 
 ## Python API
 
