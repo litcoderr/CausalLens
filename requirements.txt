@@ -1,0 +1,15 @@
+# Pinned to the environment that produced the reference MM-Vet predictions.
+# CUDA 11.8 builds of torch; needs an NVIDIA driver >= 520.
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.7.1+cu118
+torchvision==0.22.1+cu118
+transformers==4.57.5
+tokenizers==0.22.1
+peft==0.18.1
+accelerate==1.12.0
+huggingface_hub==0.36.0
+safetensors==0.4.5
+qwen-vl-utils==0.0.14
+pillow==10.4.0
+numpy==1.26.4
+tqdm
